@@ -1,6 +1,7 @@
 #include "Tek_Game.h"
 #include "Tek_Graphics.h"
 #include "Tek_Scene.h"
+#include "Tek_InputManager.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -16,6 +17,7 @@ Tek_Game::Tek_Game(const char* appId, const char* appVersion){
     this->_Title  = "TekEngine";
     _currentScene = NULL;
     this->_graphics = new Tek_Graphics();
+    this->_input    = new Tek_InputManager();
 }
 
 void Tek_Game::start(){
@@ -50,14 +52,21 @@ void Tek_Game::run(){
     }
     int lastTime = SDL_GetTicks();
     while(_running){
+        _input->clearInput();
         while(SDL_PollEvent(&event)){
-            if(event.key.keysym.scancode == SDL_SCANCODE_ESCAPE){
+            if(event.type == SDL_KEYDOWN){
+                if(event.type == SDL_KEYDOWN){
+                    _input->keyDownEvent(event);
+                }
+            }
+            else if(event.type == SDL_KEYUP){
+                _input->keyUpEvent(event);
+            }
+            else if(event.type == SDL_QUIT){
                 stop();
             }
-            if(event.key.keysym.scancode == SDL_SCANCODE_B){
-                setWindowSize(1600, 900);
-            }
         }
+
         int nowTime = SDL_GetTicks();
         SDL_UpdateWindowSurface(_graphics->getWindow());
         int deltaTime = nowTime - lastTime;

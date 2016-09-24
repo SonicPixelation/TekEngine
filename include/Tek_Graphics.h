@@ -7,6 +7,8 @@ class SDL_Surface;
 class SDL_Texture;
 class SDL_Rect;
 
+class Tek_SpriteSheet;
+
 class Tek_Graphics
 {
     public:
@@ -53,15 +55,26 @@ class Tek_Graphics
         */
         void drawTexture(SDL_Texture* texture, SDL_Rect* srcRect, SDL_Rect* dstRect);
 
-        /*
+        /* void drawTexture
+        *  @param1 SDL_Texture* texture
+        *  @param2 int x
+        *  @param3 int y
+        *  @param5 int w
+        *  @param6 int h
         */
-        void drawTexture(SDL_Texture* texture, int srcX, int srcY, int srcW, int scrH, int x, int y, int w, int h);
-        void drawTexture(SDL_Texture* texture, int x, int, int w, int h);
+        void drawTexture(SDL_Texture* texture, int x, int , int w, int h);
 
         /* SDL_Texture* texture
         *  @param const char* filepath
         */
         SDL_Texture* loadTexture(const char* filepath);
+
+        /* Tek_SpriteSheet* loadSpriteSheet
+        *  @param1 const char* filepath
+        *  @param2 int tileWidth
+        *  @param3 int tileHeight
+        */
+        Tek_SpriteSheet* loadSpriteSheet(const char* filepath, int tileWidth, int tileHeight);
 
         //setters
         //getters

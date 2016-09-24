@@ -1,9 +1,11 @@
 #include "Tek_Scene.h"
+#include "Tek_InputManager.h"
 #include "Tek_Graphics.h"
 #include "Tek_Game.h"
 
 void Tek_Scene::init(Tek_Game* game){
     this->_game = game;
+    this->_input = _game->getInput();
     this->initScene();
 }
 

@@ -2,6 +2,7 @@
 #define TEK_SCENE_H
 
 class Tek_Game;
+class Tek_InputManager;
 class Tek_Graphics;
 
 class Tek_Scene{
@@ -33,6 +34,7 @@ class Tek_Scene{
 
     private:
         Tek_Game* _game; //
+        Tek_InputManager* _input;
         /* virtual void initScene
         */
         void virtual initScene();

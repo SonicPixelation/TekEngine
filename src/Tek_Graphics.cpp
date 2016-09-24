@@ -1,4 +1,6 @@
 #include "Tek_Graphics.h"
+#include "Tek_SpriteSheet.h"
+
 
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -26,9 +28,9 @@ bool Tek_Graphics::createWindow(int width, int height, const char* title){
 
 void Tek_Graphics::destroyWindow(){
     SDL_DestroyWindow(_window);
-    _window == NULL;
+    this->_window = NULL;
     SDL_DestroyRenderer(_renderer);
-    _renderer == NULL;
+    this->_renderer = NULL;
 }
 
 void Tek_Graphics::updateWindow(const char* title){
@@ -46,8 +48,7 @@ void Tek_Graphics::updateWindow(int width, int height, const char* title){
     SDL_SetWindowTitle(_window, title);
 }
 
-
-
+//graphics rendering applications--------------------------------------------------
 void Tek_Graphics::drawTexture(SDL_Texture* texture, int x, int y, int w, int h){
     int width, height;
     SDL_QueryTexture(texture, NULL, NULL, &width, &height);
@@ -64,9 +65,19 @@ void Tek_Graphics::flipScreen(){
     SDL_RenderPresent(_renderer);
 }
 
-
+//--------------------------------------------------------------------------------
+//graphic asset loading functions
 SDL_Texture* Tek_Graphics::loadTexture(const char* filepath){
     SDL_Surface* surface = IMG_Load(filepath);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(_renderer, surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(this->_renderer, surface);
     return texture;
+}
+
+Tek_SpriteSheet* Tek_Graphics::loadSpriteSheet(const char* filepath, int tileWidth, int tileHeight){
+    SDL_Surface* surface = IMG_Load(filepath);
+    int width = surface->w;
+    int height = surface->h;
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(this->_renderer, surface);
+    Tek_SpriteSheet* sheet = new Tek_SpriteSheet(texture, width, height, tileWidth, tileHeight);
+    return sheet;
 }

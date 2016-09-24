@@ -3,6 +3,8 @@
 
 class Tek_Graphics;
 class Tek_Scene;
+class Tek_InputManager;
+
 class Tek_Game
 {
     public:
@@ -29,6 +31,11 @@ class Tek_Game
         int getHeight(){return _Height;}
         const char* getTitle(){return _Title;}
 
+        Tek_InputManager* getInput(){return _input;}
+        Tek_Graphics* getGraphics(){return _graphics;}
+        Tek_Scene* getCurrentscene(){return _currentScene;}
+
+
     private:
         const char* _appId;      // The unique id of the application
         const char* _appVersion; // The unique version of the current application iteration
@@ -39,6 +46,7 @@ class Tek_Game
         bool _running;           // If this is true the main loop will continue to process, if not the loop will break and the application will terminate
         Tek_Graphics* _graphics; //
         Tek_Scene* _currentScene;//
+        Tek_InputManager* _input;//
         //----------------------------
         /* bool init
         */
