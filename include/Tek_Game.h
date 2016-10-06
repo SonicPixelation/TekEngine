@@ -7,47 +7,51 @@ class Tek_InputManager;
 
 class Tek_Game
 {
-    public:
+     public:
+        /* Tek_Game
+        *  @param1 const char* appId
+        *  @param2 const char* appVersion
+        */
         Tek_Game(const char* appId, const char* appVersion);
 
         /* void start
         */
         void start();
-
         /* void stop
         */
         void stop();
-        /* void setScene
-        *  @param1 Tek_Scene* scene
-        */
 
         //setters
-        void setScene(Tek_Scene* scene);
-        void setWindowSize(int width, int height);
-        void setWindowTitle(const char* title);
-
-        //getters
+        void setScene(Tek_Scene* newScene);
+        //getters---------------------------------------
+        const char* getAppId(){return _appId;}
+        const char* getAppVersion(){return _appVersion;}
+        //----------------------------------------------
+        bool isRunning(){return _running;}
+        //
         int getWidth(){return _Width;}
         int getHeight(){return _Height;}
         const char* getTitle(){return _Title;}
-
-        Tek_InputManager* getInput(){return _input;}
+        bool isFullscreen(){return _Fullscreen;}
+        //--------------------------------------------
         Tek_Graphics* getGraphics(){return _graphics;}
-        Tek_Scene* getCurrentscene(){return _currentScene;}
-
+        Tek_Scene* getCurrentScene(){return _currentScene;}
+        Tek_InputManager* getInputManager(){return _input;}
 
     private:
-        const char* _appId;      // The unique id of the application
-        const char* _appVersion; // The unique version of the current application iteration
-        //----------------------------
-        int _Width;              // The width in pixels of the screen
-        int _Height;             // The height in pixels of the screen
-        const char* _Title;      // The title of the screen
-        bool _running;           // If this is true the main loop will continue to process, if not the loop will break and the application will terminate
-        Tek_Graphics* _graphics; //
-        Tek_Scene* _currentScene;//
-        Tek_InputManager* _input;//
-        //----------------------------
+        const char* _appId;       //
+        const char* _appVersion;  //
+        //------------------------//
+        bool _running;            //
+        //------------------------//
+        int _Width, _Height;      //
+        const char* _Title;       //
+        bool _Fullscreen;         //
+        //------------------------//
+        Tek_Graphics* _graphics;  //
+        Tek_Scene* _currentScene; //
+        Tek_InputManager* _input; //
+        //------------------------//
         /* bool init
         */
         bool init();
@@ -55,14 +59,16 @@ class Tek_Game
         */
         void run();
         /* void update
-        *  @param float deltaTime
+        *  @param1 int deltaTime
         */
-        void update(float deltaTime);
+        void update(int deltaTime);
         /* void render
-        *  @param Tek_Graphics* graphics
+        *  @param1 Tek_Graphics* graphics
         */
         void render(Tek_Graphics* graphics);
         /* void destroy
+        *  cleans up everything on the screen before
+        *  the game is closed
         */
         void destroy();
 };

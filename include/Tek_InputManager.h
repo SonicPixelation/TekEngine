@@ -7,31 +7,36 @@
 class Tek_InputManager
 {
     public:
+    /* void clearInput
+    */
+    void clearInput();
+    /* void keyDownEvent
+    *  @param const SDL_Event& event
+    *  this event should be called when
+    *  a key is pressed down
+    */
+    void keyDownEvent(const SDL_Event& event);
+    /* void keyUpEvent
+    *  @param const SDL_Event& event
+    *  this event should be called when the key
+    *  is released
+    */
+    void keyUpEvent(const SDL_Event& event);
 
-        /* void clearInput
-        */
-        void clearInput();
-        /* void keyDownEvent
-        *  @param1 const SDL_Event& event
-        */
-        void keyDownEvent(const SDL_Event& event);
-        /* void keyUpEvent
-        *  @param1 const SDL_Event& event
-        */
-        void keyUpEvent(const SDL_Event& event);
-        //
-        /* bool wasKeyPressed
-        *  @param1 SDL_Scancode key
-        */
-        bool wasKeyPressed(SDL_Scancode key);
-        /* bool wasKeyReleased
-        *  @param1 SDL_Scancode key
-        */
-        bool wasKeyReleased(SDL_Scancode key);
-        /* bool isKeyHeld
-        *  @param1 SDL_Scancode key
-        */
-        bool isKeyHeld(SDL_Scancode key);
+    /* bool wasKeyPressed
+    *  @paam SDL_Scancode key
+    *  returns true when a key is pressed
+    */
+    bool wasKeyPressed(SDL_Scancode key);
+    /* bool wasKeyReleased
+    *  @param SDL_Scancode key
+    */
+    bool wasKeyReleased(SDL_Scancode key);
+    /* bool isKeyHeld
+    *  @param SDL_Scancode key
+    */
+    bool isKeyHeld(SDL_Scancode key);
+
     private:
         std::map<SDL_Scancode, bool> _pressedKeys;
         std::map<SDL_Scancode, bool> _releasedKeys;
