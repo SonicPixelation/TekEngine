@@ -90,6 +90,10 @@ class Tek_Graphics
         */
         void destroy();
 
+        //getters
+        SDL_Window* getWindow(){return _window;}
+        SDL_Renderer* getRenderer(){return _renderer;}
+
     private:
         SDL_Window* _window;     //
         SDL_Renderer* _renderer; //

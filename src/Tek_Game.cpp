@@ -13,6 +13,7 @@ Tek_Game::Tek_Game(const char* appId, const char* appVersion){
     this->_Width = 640;
     this->_Height = 480;
     this->_Title = "Tek Game";
+    this->_Fullscreen = false;
     this->_currentScene = NULL;
 
     this->_graphics = new Tek_Graphics();
@@ -39,6 +40,7 @@ bool Tek_Game::init(){
     if(!getGraphics()->createScreen(this->_Width, this->_Height, this->_Title)){
         return false;
     }
+    setFullscreen(_Fullscreen);
     return true;
 }
 //
@@ -88,7 +90,9 @@ void Tek_Game::render(Tek_Graphics* graphics){
 
 
 void Tek_Game::destroy(){
-    _currentScene->destroy();
+    if(_currentScene != NULL){
+        _currentScene->destroy();
+    }
     _graphics->destroy();
     delete _graphics;
 }
@@ -100,5 +104,33 @@ void Tek_Game::setScene(Tek_Scene* newScene){
     if(_running){
         _currentScene->init(this);
         _currentScene->initAssets(_graphics);
+    }
+}
+
+void Tek_Game::setScreenSize(int width, int height){
+    this->_Width = width;
+    this->_Height = height;
+    if(_running){
+        SDL_SetWindowSize(getGraphics()->getWindow(), _Width, _Height);
+        SDL_SetWindowPosition(getGraphics()->getWindow(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    }
+}
+
+void Tek_Game::setFullscreen(bool fullscreen){
+    this->_Fullscreen = fullscreen;
+    if(_running){
+        if(_Fullscreen){
+            SDL_SetWindowFullscreen(getGraphics()->getWindow(), SDL_WINDOW_FULLSCREEN);
+            SDL_SetWindowPosition(getGraphics()->getWindow(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        }else{
+            SDL_SetWindowFullscreen(getGraphics()->getWindow(), 0);
+        }
+    }
+}
+
+void Tek_Game::setTitle(const char* title){
+    this->_Title = title;
+    if(_running){
+        SDL_SetWindowTitle(_graphics->getWindow(), _Title);
     }
 }

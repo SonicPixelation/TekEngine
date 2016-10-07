@@ -22,7 +22,17 @@ class Tek_Game
         void stop();
 
         //setters
+        /* void setScene
+        *  @param Tek_Scene* newScene
+        *  sets the scene that the game engine
+        *  will update and render
+        */
         void setScene(Tek_Scene* newScene);
+
+        void setScreenSize(int width, int height);
+        void setFullscreen(bool fullscreen);
+        void setTitle(const char* title);
+
         //getters---------------------------------------
         const char* getAppId(){return _appId;}
         const char* getAppVersion(){return _appVersion;}

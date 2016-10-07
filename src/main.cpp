@@ -1,10 +1,10 @@
 #include "Tek_Game.h"
-#include "TestScene.h"
+#include "PongMenuScene.h"
 
 int main(int argc, char* args[]){
     Tek_Game game("TestApp", "0.0.0");
-    TestScene* testScene = new TestScene();
-    game.setScene(testScene);
+    PongMenuScene* pong = new PongMenuScene();
+    game.setScene(pong);
     game.start();
     return 0;
 }
