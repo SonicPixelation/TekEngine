@@ -1,19 +1,14 @@
 #ifndef TEK_GAME_H
 #define TEK_GAME_H
 
-class Tek_Graphics;
-class Tek_Scene;
-class Tek_InputManager;
+class lua_State;
+//
+class Tek_Screen;
 
 class Tek_Game
 {
-     public:
-        /* Tek_Game
-        *  @param1 const char* appId
-        *  @param2 const char* appVersion
-        */
-        Tek_Game(const char* appId, const char* appVersion);
-
+    public:
+        Tek_Game();
         /* void start
         */
         void start();
@@ -21,47 +16,26 @@ class Tek_Game
         */
         void stop();
 
-        //setters
-        /* void setScene
-        *  @param Tek_Scene* newScene
-        *  sets the scene that the game engine
-        *  will update and render
-        */
-        void setScene(Tek_Scene* newScene);
-
-        void setScreenSize(int width, int height);
-        void setFullscreen(bool fullscreen);
-        void setTitle(const char* title);
-
-        //getters---------------------------------------
-        const char* getAppId(){return _appId;}
-        const char* getAppVersion(){return _appVersion;}
-        //----------------------------------------------
+        //getters-------------------------------
+        int getWidth(){return _width;}
+        int getHeight(){return _height;}
+        const char* getTitle(){return _title;}
         bool isRunning(){return _running;}
-        //
-        int getWidth(){return _Width;}
-        int getHeight(){return _Height;}
-        const char* getTitle(){return _Title;}
-        bool isFullscreen(){return _Fullscreen;}
-        //--------------------------------------------
-        Tek_Graphics* getGraphics(){return _graphics;}
-        Tek_Scene* getCurrentScene(){return _currentScene;}
-        Tek_InputManager* getInputManager(){return _input;}
-
+        //--------------------------------------
+        Tek_Screen* getScreen(){return _screen;}
     private:
-        const char* _appId;       //
-        const char* _appVersion;  //
-        //------------------------//
-        bool _running;            //
-        //------------------------//
-        int _Width, _Height;      //
-        const char* _Title;       //
-        bool _Fullscreen;         //
-        //------------------------//
-        Tek_Graphics* _graphics;  //
-        Tek_Scene* _currentScene; //
-        Tek_InputManager* _input; //
-        //------------------------//
+        lua_State* _mainState;
+        //--------------------
+        int _width;
+        int _height;
+        const char* _title;
+        bool _running;
+        //-------------------
+        Tek_Screen* _screen;
+        //------------------
+
+
+        //game engine fuctions-------
         /* bool init
         */
         bool init();
@@ -69,16 +43,14 @@ class Tek_Game
         */
         void run();
         /* void update
-        *  @param1 int deltaTime
+        *  @param float deltaTime
         */
-        void update(int deltaTime);
+        void update(float deltaTime);
         /* void render
-        *  @param1 Tek_Graphics* graphics
+        *  @param Tek_Screen* screen
         */
-        void render(Tek_Graphics* graphics);
+        void render(Tek_Screen* screen);
         /* void destroy
-        *  cleans up everything on the screen before
-        *  the game is closed
         */
         void destroy();
 };
